@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import Axios from 'axios';
-import Comments from './Comments';
+import React, { Component } from "react";
+import Axios from "axios";
+import Comments from "./Comments";
+import { Jumbotron } from "react-bootstrap";
 
 class SingleArticle extends Component {
   state = {
@@ -12,12 +13,14 @@ class SingleArticle extends Component {
 
     return (
       <div>
-        <h1>Article </h1>
-        {article && <h3>Title: {article.title}</h3>}
-        {article && <p> {article.body}</p>}
+        <Jumbotron fluid>
+          <h1>Article </h1>
+          {article && <h3>{article.title}</h3>}
+          {article && <p> {article.body}</p>}
+        </Jumbotron>
         <div>
           <div>
-            <h3>Add New Comment:</h3>
+            <h4>Add New Comment:</h4>
           </div>
           <Comments article_id={this.props.article_id} />
         </div>

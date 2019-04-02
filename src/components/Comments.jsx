@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import CommentsForm from './CommentsForm';
+import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
+import { Jumbotron } from "react-bootstrap";
+import axios from "axios";
+import CommentsForm from "./CommentsForm";
+import './style.css'
 
 class Comments extends Component {
   state = {
@@ -14,15 +17,25 @@ class Comments extends Component {
           addComment={this.addComment}
           article_id={this.props.article_id}
         />
-        <h1>Comments</h1>
+        <h3>Comments:</h3>
         {comments.map(comment => {
           return (
-            <ul key={comment.comment_id}>
-              <li> {comment.body}</li>
-              <button onClick={this.handleDelete} id={comment.comment_id}>
-                Delete
-              </button>
-            </ul>
+            <Jumbotron className='jumbotron' fluid>
+              <ul key={comment.comment_id} >
+                <li className='list' > {comment.body}
+                  <p className='author'>From: {comment.author}</p>
+                </li>
+                <Button
+
+                  variant="danger"
+                  onClick={this.handleDelete}
+                  id={comment.comment_id}
+                >
+                  Delete
+                  </Button>
+              </ul>
+
+            </Jumbotron>
           );
         })}
       </div>
