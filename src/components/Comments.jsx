@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import { Jumbotron } from "react-bootstrap";
-import axios from "axios";
-import CommentsForm from "./CommentsForm";
-import './style.css'
+import React, { Component } from 'react';
+import Button from 'react-bootstrap/Button';
+import { Jumbotron } from 'react-bootstrap';
+import axios from 'axios';
+import CommentsForm from './CommentsForm';
+import './style.css';
 
 class Comments extends Component {
   state = {
@@ -21,20 +21,19 @@ class Comments extends Component {
         {comments.map(comment => {
           return (
             <Jumbotron className='jumbotron' fluid>
-              <ul key={comment.comment_id} >
-                <li className='list' > {comment.body}
+              <ul key={comment.comment_id}>
+                <li className='list'>
+                  {comment.body}
                   <p className='author'>From: {comment.author}</p>
                 </li>
                 <Button
-
-                  variant="danger"
+                  variant='danger'
                   onClick={this.handleDelete}
                   id={comment.comment_id}
                 >
                   Delete
-                  </Button>
+                </Button>
               </ul>
-
             </Jumbotron>
           );
         })}
@@ -58,7 +57,13 @@ class Comments extends Component {
     const commentId = e.target.id;
     const url = `https://nc-news-server.herokuapp.com/api/comments/${commentId}`;
 
-    axios.delete(url).then(this.componentDidMount());
+    axios.delete(url).then(data => {
+      this.setState({
+        comments: this.state.comments.filter(comment => {
+          return comment.comment_id !== Number(commentId);
+        })
+      });
+    });
   };
 }
 

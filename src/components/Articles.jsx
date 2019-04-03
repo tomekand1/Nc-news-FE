@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import Axios from "axios";
-import { Link } from "@reach/router";
-import { ListGroup } from "react-bootstrap";
+import React, { Component } from 'react';
+import Axios from 'axios';
+import { Link } from '@reach/router';
+import { ListGroup } from 'react-bootstrap';
 
 class Articles extends Component {
   state = {
@@ -12,21 +12,24 @@ class Articles extends Component {
     return (
       <div>
         <form>
-          <input type="text" />
+          <input type='text' />
         </form>
 
         {articles &&
           articles.map(article => {
             return (
-              <ListGroup variant="flush">
+              <ListGroup variant='flush'>
                 <ListGroup.Item>
-                  <Link
-                    key={article.title}
-                    to={`/article/${article.article_id}`}
-                    id={article.article_id}
-                    style={{ cursor: "pointer" }}>
-                    {article.title}
-                  </Link>
+                  <ul>
+                    <Link
+                      key={article.title}
+                      to={`/article/${article.article_id}`}
+                      id={article.article_id}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {article.title}
+                    </Link>
+                  </ul>
                 </ListGroup.Item>
               </ListGroup>
             );
@@ -35,7 +38,7 @@ class Articles extends Component {
     );
   }
   componentDidMount = () => {
-    const url = "https://nc-news-server.herokuapp.com/api/articles";
+    const url = 'https://nc-news-server.herokuapp.com/api/articles';
     return Axios.get(url).then(({ data }) => {
       return this.setState({ articles: data.articles });
     });
