@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import './style.css';
+import { Form } from 'react-bootstrap';
 
 class CommentsForm extends Component {
   state = {
@@ -9,10 +11,17 @@ class CommentsForm extends Component {
     const { body } = this.state;
 
     return (
-      <form>
-        <textarea value={body} type='text' onChange={this.handleBody} />
-        <button onClick={this.handlePostNewComment}>Submit</button>
-      </form>
+      <Form onSubmit={this.handlePostNewComment}>
+        <Form.Group className='commentInput'>
+          <Form.Label />
+          <Form.Control
+            placeholder='Enter comment'
+            value={body}
+            type='text'
+            onChange={this.handleBody}
+          />
+        </Form.Group>
+      </Form>
     );
   }
 

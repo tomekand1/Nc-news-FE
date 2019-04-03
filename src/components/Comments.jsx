@@ -17,7 +17,7 @@ class Comments extends Component {
           addComment={this.addComment}
           article_id={this.props.article_id}
         />
-        <h3>Comments:</h3>
+        <h6>Comments:</h6>
         {comments.map(comment => {
           return (
             <Jumbotron className='jumbotron' fluid>
@@ -28,6 +28,7 @@ class Comments extends Component {
                 </li>
                 <Button
                   variant='danger'
+                  size='sm'
                   onClick={this.handleDelete}
                   id={comment.comment_id}
                 >
@@ -57,12 +58,12 @@ class Comments extends Component {
     const commentId = e.target.id;
     const url = `https://nc-news-server.herokuapp.com/api/comments/${commentId}`;
 
-    axios.delete(url).then(data => {
-      this.setState({
-        comments: this.state.comments.filter(comment => {
+    axios.delete(url).then(() => {
+      this.setState(state => ({
+        comments: state.comments.filter(comment => {
           return comment.comment_id !== Number(commentId);
         })
-      });
+      }));
     });
   };
 }

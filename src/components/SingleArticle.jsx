@@ -1,26 +1,51 @@
-import React, { Component } from "react";
-import Axios from "axios";
-import Comments from "./Comments";
-import { Jumbotron } from "react-bootstrap";
+import React, { Component } from 'react';
+import './style.css';
+import Axios from 'axios';
+import Comments from './Comments';
+import { Jumbotron, Button } from 'react-bootstrap';
+import * as api from '../api';
 
 class SingleArticle extends Component {
   state = {
-    article: null
+    article: null,
+    votes: 0
   };
 
   render() {
-    const { article } = this.state;
-
+    const { article, votes } = this.state;
     return (
       <div>
         <Jumbotron fluid>
-          <h1>Article </h1>
-          {article && <h3>{article.title}</h3>}
-          {article && <p> {article.body}</p>}
+          <h3>Article</h3>
+          {article && (
+            <div>
+              <h3>{article.title}</h3>
+              <p> {article.body}</p>
+              <div className='voteButtons'>
+                <Button
+                  variant='success'
+                  size='sm'
+                  disabled={votes === 1}
+                  onClick={() => this.handleClickVote(1)}
+                >
+                  Vote Up
+                </Button>
+                <h5>Votes: {article.votes + votes} </h5>
+                <Button
+                  variant='danger'
+                  size='sm'
+                  disabled={votes === -1}
+                  onClick={() => this.handleClickVote(-1)}
+                >
+                  Vote Down
+                </Button>
+              </div>
+            </div>
+          )}
         </Jumbotron>
         <div>
           <div>
-            <h4>Add New Comment:</h4>
+            <h6>Add New Comment:</h6>
           </div>
           <Comments article_id={this.props.article_id} />
         </div>
@@ -29,11 +54,25 @@ class SingleArticle extends Component {
   }
 
   componentDidMount = () => {
+    this.fetchArticle();
+  };
+
+  fetchArticle = () => {
     const { article_id } = this.props;
-    const url = `https://nc-news-server.herokuapp.com/api/articles/${article_id}`;
-    return Axios.get(url).then(({ data }) => {
-      return this.setState({ article: data.article });
+    api.getArticleById(article_id).then(article => {
+      return this.setState({ article });
     });
+  };
+
+  handleClickVote = voteNum => {
+    const { article_id } = this.props;
+    let obj = { inc_votes: voteNum };
+    const url = `https://nc-news-server.herokuapp.com/api/articles/${article_id}`;
+
+    Axios.patch(url, obj);
+    this.setState(prevState => ({
+      votes: prevState.votes + voteNum
+    }));
   };
 }
 
