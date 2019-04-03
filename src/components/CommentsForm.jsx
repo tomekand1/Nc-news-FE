@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 import './style.css';
 import { Form } from 'react-bootstrap';
+import * as api from '../api';
 
 class CommentsForm extends Component {
   state = {
@@ -28,12 +28,10 @@ class CommentsForm extends Component {
   handlePostNewComment = e => {
     e.preventDefault();
     const { article_id } = this.props;
-    const url = `https://nc-news-server.herokuapp.com/api/articles/${article_id}/comments`;
-
     const obj = { username: 'grumpy19', body: this.state.body };
 
-    Axios.post(url, obj).then(res => {
-      this.props.addComment(res.data.comment);
+    api.postNewComment(article_id, obj).then(comment => {
+      this.props.addComment(comment);
       this.clearInput();
     });
   };

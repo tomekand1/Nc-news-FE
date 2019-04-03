@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import './style.css';
-import Axios from 'axios';
 import Comments from './Comments';
-import { Jumbotron, Button } from 'react-bootstrap';
+import { Jumbotron } from 'react-bootstrap';
 import * as api from '../api';
+import VoteButton from './VoteButton';
 
 class SingleArticle extends Component {
   state = {
-    article: null,
-    votes: 0
+    article: null
   };
 
   render() {
-    const { article, votes } = this.state;
+    const { article } = this.state;
+    const { article_id } = this.props;
     return (
       <div>
         <Jumbotron fluid>
@@ -21,24 +21,12 @@ class SingleArticle extends Component {
             <div>
               <h3>{article.title}</h3>
               <p> {article.body}</p>
+              <p>Author: {article.author}</p>
               <div className='voteButtons'>
-                <Button
-                  variant='success'
-                  size='sm'
-                  disabled={votes === 1}
-                  onClick={() => this.handleClickVote(1)}
-                >
-                  Vote Up
-                </Button>
-                <h5>Votes: {article.votes + votes} </h5>
-                <Button
-                  variant='danger'
-                  size='sm'
-                  disabled={votes === -1}
-                  onClick={() => this.handleClickVote(-1)}
-                >
-                  Vote Down
-                </Button>
+                <VoteButton
+                  article_id={article_id}
+                  articleVotes={article.votes}
+                />
               </div>
             </div>
           )}
@@ -62,17 +50,6 @@ class SingleArticle extends Component {
     api.getArticleById(article_id).then(article => {
       return this.setState({ article });
     });
-  };
-
-  handleClickVote = voteNum => {
-    const { article_id } = this.props;
-    let obj = { inc_votes: voteNum };
-    const url = `https://nc-news-server.herokuapp.com/api/articles/${article_id}`;
-
-    Axios.patch(url, obj);
-    this.setState(prevState => ({
-      votes: prevState.votes + voteNum
-    }));
   };
 }
 

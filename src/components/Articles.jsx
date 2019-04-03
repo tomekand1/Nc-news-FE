@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 import { Link } from '@reach/router';
 import { ListGroup } from 'react-bootstrap';
+import * as api from '../api';
+import ArticlesForm from './ArticlesForm';
 
 class Articles extends Component {
   state = {
@@ -11,24 +12,22 @@ class Articles extends Component {
     const { articles } = this.state;
     return (
       <div>
-        <form>
-          <input type='text' />
-        </form>
-
+        <ArticlesForm />
         {articles &&
           articles.map(article => {
             return (
               <ListGroup variant='flush'>
                 <ListGroup.Item>
-                  <ul>
+                  <ul key={article.title}>
                     <Link
-                      key={article.title}
                       to={`/article/${article.article_id}`}
                       id={article.article_id}
                       style={{ cursor: 'pointer' }}
                     >
-                      {article.title}
+                      <h4> Title: {article.title}</h4>
                     </Link>
+                    <h6> Topic: {article.topic}</h6>
+                    <h6> {article.created_at.slice(0, 10)}</h6>
                   </ul>
                 </ListGroup.Item>
               </ListGroup>
@@ -38,9 +37,8 @@ class Articles extends Component {
     );
   }
   componentDidMount = () => {
-    const url = 'https://nc-news-server.herokuapp.com/api/articles';
-    return Axios.get(url).then(({ data }) => {
-      return this.setState({ articles: data.articles });
+    api.getArticles().then(articles => {
+      return this.setState({ articles });
     });
   };
 }

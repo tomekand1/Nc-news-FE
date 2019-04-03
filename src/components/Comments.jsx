@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Jumbotron } from 'react-bootstrap';
-import axios from 'axios';
 import CommentsForm from './CommentsForm';
 import './style.css';
+import * as api from '../api';
 
 class Comments extends Component {
   state = {
@@ -44,9 +44,8 @@ class Comments extends Component {
 
   componentDidMount() {
     const { article_id } = this.props;
-    const commentUrl = `https://nc-news-server.herokuapp.com/api/articles/${article_id}/comments`;
-    axios.get(commentUrl).then(({ data }) => {
-      return this.setState({ comments: data.comments });
+    api.getCommentsByArticleId(article_id).then(comments => {
+      return this.setState({ comments });
     });
   }
 
@@ -55,13 +54,12 @@ class Comments extends Component {
   };
 
   handleDelete = e => {
-    const commentId = e.target.id;
-    const url = `https://nc-news-server.herokuapp.com/api/comments/${commentId}`;
+    const comment_id = e.target.id;
 
-    axios.delete(url).then(() => {
+    api.deleteComment(comment_id).then(() => {
       this.setState(state => ({
         comments: state.comments.filter(comment => {
-          return comment.comment_id !== Number(commentId);
+          return comment.comment_id !== Number(comment_id);
         })
       }));
     });
