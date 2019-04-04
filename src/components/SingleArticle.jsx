@@ -22,12 +22,10 @@ class SingleArticle extends Component {
               <h3>{article.title}</h3>
               <p> {article.body}</p>
               <p>Author: {article.author}</p>
-              <div className='voteButtons'>
-                <VoteButton
-                  article_id={article_id}
-                  articleVotes={article.votes}
-                />
-              </div>
+              <VoteButton
+                article_id={article_id}
+                articleVotes={article.votes}
+              />
             </div>
           )}
         </Jumbotron>

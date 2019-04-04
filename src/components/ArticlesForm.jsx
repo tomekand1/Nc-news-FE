@@ -1,24 +1,44 @@
 import React, { Component } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Dropdown, Button } from 'react-bootstrap';
+import * as api from '../api';
 
 class ArticlesForm extends Component {
   state = {
-    inputBody: ''
+    inputBody: '',
+    inputTitle: '',
+    topics: []
   };
   render() {
-    const { inputBody } = this.state;
-    console.log(inputBody);
+    const { inputBody, inputTitle, topics } = this.state;
     return (
       <Form>
+        <h6>Add Article:</h6>
+        <Dropdown>
+          <select className='form-control' id='sel2'>
+            <option> Select topic ...</option>
+            {topics.map(topic => {
+              return (
+                <option value={topic.slug} id={topic.topic_id}>
+                  {topic.slug}
+                </option>
+              );
+            })}
+          </select>
+        </Dropdown>
         <Form.Group className='commentInput'>
           <Form.Label />
-          <Form.Control placeholder='Enter Title' type='text' />
+          <Form.Control
+            onChange={e => this.handleChange(e, 'title')}
+            placeholder='Enter Title'
+            type='text'
+            value={inputTitle}
+          />
           <label />
           <textarea
             placeholder='article...'
             className='form-control'
             rows='3'
-            onChange={this.handleChange}
+            onChange={e => this.handleChange(e, 'body')}
             value={inputBody}
           />
           <div>
@@ -35,14 +55,29 @@ class ArticlesForm extends Component {
     );
   }
 
-  handleChange = e => {
-    const inputBody = e.target.value;
-    this.setState({ inputBody });
+  handleChange = (e, inputText) => {
+    const input = e.target.value;
+    return inputText === 'body'
+      ? this.setState({ inputBody: input })
+      : this.setState({ inputTitle: input });
   };
 
   handleSubmitArticle = e => {
     e.preventDefault();
-    console.log('he');
+    const { inputBody, inputTitle } = this.state;
+    const obj = {
+      title: inputTitle,
+      body: inputBody,
+      topic: 'cooking',
+      username: 'weegembump'
+    };
+    api.postArticles(obj).then(console.log);
+  };
+
+  componentDidMount = () => {
+    api.getTopics().then(topics => {
+      this.setState({ topics: topics });
+    });
   };
 }
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './style.css';
 import { Button } from 'react-bootstrap';
 import * as api from '../api';
 
@@ -10,7 +11,7 @@ class VoteButton extends Component {
     const { votes } = this.state;
     const { articleVotes } = this.props;
     return (
-      <div>
+      <div className='voteButtons'>
         <Button
           variant='success'
           size='sm'

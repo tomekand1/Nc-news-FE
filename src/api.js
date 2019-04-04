@@ -14,6 +14,12 @@ export const getArticles = () => {
   return axios.get(`${base_url}/articles`).then(({ data }) => data.articles);
 };
 
+export const postArticles = obj => {
+  return axios
+    .post(`${base_url}/articles`, obj)
+    .then(({ data }) => data.article);
+};
+
 export const articleVote = (article_id, obj) => {
   return axios.patch(`${base_url}/articles/${article_id}`, obj);
 };
@@ -34,4 +40,10 @@ export const getCommentsByArticleId = article_id => {
 
 export const deleteComment = comment_id => {
   return axios.delete(`${base_url}/comments/${comment_id}`);
+};
+
+//topics handler
+
+export const getTopics = () => {
+  return axios.get(`${base_url}/topics`).then(({ data }) => data.topics);
 };
