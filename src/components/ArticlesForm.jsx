@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
-import { Form, Dropdown, Button } from 'react-bootstrap';
+import { Form, Dropdown } from 'react-bootstrap';
 import * as api from '../api';
 
 class ArticlesForm extends Component {
   state = {
     inputBody: '',
     inputTitle: '',
+    inputTopic: '',
+    selectTopic: false,
     topics: []
   };
   render() {
-    const { inputBody, inputTitle, topics } = this.state;
+    const { inputBody, inputTitle, topics, selectTopic } = this.state;
+
     return (
       <Form>
         <h6>Add Article:</h6>
         <Dropdown>
-          <select className='form-control' id='sel2'>
-            <option> Select topic ...</option>
+          {selectTopic && <h3>Topic not Selected</h3>}
+          <select
+            onChange={e => this.handleChange(e, 'topic')}
+            className='form-control'
+            id='sel2'
+          >
+            <option>Select topic ...</option>
             {topics.map(topic => {
               return (
-                <option value={topic.slug} id={topic.topic_id}>
+                <option
+                  key={topic.slug}
+                  onClick={e => this.handleChange(e, 'topic')}
+                  value={topic.slug}
+                  id={topic.topic_id}
+                >
                   {topic.slug}
                 </option>
               );
@@ -32,6 +45,7 @@ class ArticlesForm extends Component {
             placeholder='Enter Title'
             type='text'
             value={inputTitle}
+            required
           />
           <label />
           <textarea
@@ -40,6 +54,7 @@ class ArticlesForm extends Component {
             rows='3'
             onChange={e => this.handleChange(e, 'body')}
             value={inputBody}
+            required
           />
           <div>
             <button
@@ -57,21 +72,40 @@ class ArticlesForm extends Component {
 
   handleChange = (e, inputText) => {
     const input = e.target.value;
-    return inputText === 'body'
-      ? this.setState({ inputBody: input })
-      : this.setState({ inputTitle: input });
+    if (inputText === 'body') {
+      this.setState({ inputBody: input });
+    } else if (inputText === 'title') {
+      this.setState({ inputTitle: input });
+    } else {
+      this.setState({ inputTopic: input });
+    }
   };
 
   handleSubmitArticle = e => {
     e.preventDefault();
-    const { inputBody, inputTitle } = this.state;
+    const { inputBody, inputTitle, inputTopic } = this.state;
     const obj = {
       title: inputTitle,
       body: inputBody,
-      topic: 'cooking',
+      topic: inputTopic,
       username: 'weegembump'
     };
-    api.postArticles(obj).then(console.log);
+
+    obj.topic === ''
+      ? this.setState({ selectTopic: true })
+      : api.postArticles(obj).then(article => {
+          this.props.addArticle(article);
+          this.setState({ selectTopic: false });
+          this.clearInput();
+        });
+  };
+
+  clearInput = () => {
+    this.setState({
+      inputBody: '',
+      inputTitle: '',
+      inputTopic: ''
+    });
   };
 
   componentDidMount = () => {
@@ -82,5 +116,3 @@ class ArticlesForm extends Component {
 }
 
 export default ArticlesForm;
-
-//'title', 'body', 'topic', 'username';

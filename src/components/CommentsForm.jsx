@@ -19,6 +19,7 @@ class CommentsForm extends Component {
             value={body}
             type='text'
             onChange={this.handleBody}
+            required
           />
         </Form.Group>
       </Form>

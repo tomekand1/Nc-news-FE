@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Button } from 'react-bootstrap';
 import * as api from '../api';
 import ArticlesForm from './ArticlesForm';
 
@@ -12,13 +12,13 @@ class Articles extends Component {
     const { articles } = this.state;
     return (
       <div>
-        <ArticlesForm />
+        <ArticlesForm addArticle={this.addArticle} />
         {articles &&
           articles.map(article => {
             return (
-              <ListGroup variant='flush'>
+              <ListGroup key={article.article_id} variant='flush'>
                 <ListGroup.Item>
-                  <ul key={article.title}>
+                  <ul>
                     <Link
                       to={`/article/${article.article_id}`}
                       id={article.article_id}
@@ -28,6 +28,14 @@ class Articles extends Component {
                     </Link>
                     <h6> Topic: {article.topic}</h6>
                     <h6> {article.created_at.slice(0, 10)}</h6>
+                    <Button
+                      variant='danger'
+                      size='sm'
+                      onClick={this.handleDelete}
+                      id={article.article_id}
+                    >
+                      Delete
+                    </Button>
                   </ul>
                 </ListGroup.Item>
               </ListGroup>
@@ -36,9 +44,26 @@ class Articles extends Component {
       </div>
     );
   }
+  addArticle = articleToAdd => {
+    this.setState({ articles: [articleToAdd, ...this.state.articles] });
+  };
+
   componentDidMount = () => {
-    api.getArticles().then(articles => {
+    const selectedTopic = this.props.topic;
+
+    api.getArticles(selectedTopic).then(articles => {
       return this.setState({ articles });
+    });
+  };
+
+  handleDelete = e => {
+    const article_id = e.target.id;
+    api.deleteArticle(article_id).then(() => {
+      this.setState(state => ({
+        articles: state.articles.filter(article => {
+          return article.article_id !== Number(article_id);
+        })
+      }));
     });
   };
 }

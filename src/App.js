@@ -23,6 +23,7 @@ class App extends Component {
           <HomePage path='/' />
           <SingleArticle path='/article/:article_id' />
           <Articles path='/articles' />
+          <Articles path='/articles/:topic' />
         </Router>
       </div>
     );

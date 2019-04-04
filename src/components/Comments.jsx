@@ -17,7 +17,7 @@ class Comments extends Component {
           addComment={this.addComment}
           article_id={this.props.article_id}
         />
-        <h6>Comments:</h6>
+        <h6>Comments:{comments.length}</h6>
         {comments.map(comment => {
           return (
             <Jumbotron className='jumbotron' fluid>
