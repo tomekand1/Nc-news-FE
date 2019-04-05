@@ -10,7 +10,6 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
 import { navigate } from '@reach/router';
 import Navigation from 'react-sticky-nav';
-import { css } from '@emotion/core';
 
 class App extends Component {
   state = {
