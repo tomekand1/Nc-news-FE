@@ -21,7 +21,7 @@ class App extends Component {
     const { users, logonUser } = this.state;
 
     return (
-      <div className='App'>
+      <div>
         <Navigation>
           <Nav className='nav'>
             <ul>

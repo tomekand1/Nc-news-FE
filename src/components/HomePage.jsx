@@ -20,7 +20,7 @@ class HomePage extends Component {
           </div>
         )}
         <h6 style={{ margin: '2em' }}>Topics: {topics.length} </h6>
-        <ul>
+        <ul className='topicList'>
           {topics.map(topic => {
             return (
               <div

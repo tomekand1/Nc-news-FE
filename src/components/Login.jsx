@@ -4,10 +4,11 @@ import './style.css';
 
 class Login extends Component {
   state = {
-    inputUser: ''
+    inputUser: '',
+    userNotFound: ''
   };
   render() {
-    const { inputUser } = this.state;
+    const { inputUser, userNotFound } = this.state;
     return (
       <div>
         <Form className='loginForm'>
@@ -21,6 +22,7 @@ class Login extends Component {
               value={inputUser}
             />
             <Form.Text className='text-muted'>
+              {userNotFound && <h6 style={{ color: 'red' }}>User not exist</h6>}
               We'll never share your details with anyone else.
             </Form.Text>
           </Form.Group>
@@ -33,7 +35,8 @@ class Login extends Component {
   }
   clearInput = () => {
     this.setState({
-      inputUser: ''
+      inputUser: '',
+      userNotFound: true
     });
   };
 
