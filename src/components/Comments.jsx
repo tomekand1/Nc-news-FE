@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import { Jumbotron } from 'react-bootstrap';
+
 import CommentsForm from './CommentsForm';
 import './style.css';
 import * as api from '../api';
@@ -11,21 +11,23 @@ class Comments extends Component {
   };
   render() {
     const { comments } = this.state;
+    const { logonUser, article_id } = this.props;
     return (
       <div>
-        <CommentsForm
-          addComment={this.addComment}
-          article_id={this.props.article_id}
-        />
-        <h6>Comments:{comments.length}</h6>
+        {logonUser && (
+          <CommentsForm
+            logonUser={logonUser}
+            addComment={this.addComment}
+            article_id={article_id}
+          />
+        )}
+        <h6 style={{ margin: '2em' }}>Comments:{comments.length}</h6>
         {comments.map(comment => {
           return (
-            <Jumbotron className='jumbotron' fluid>
-              <ul key={comment.comment_id}>
-                <li className='list'>
-                  {comment.body}
-                  <p className='author'>From: {comment.author}</p>
-                </li>
+            <div className='jumbotron' key={comment.comment_id}>
+              <ul className='list'>{comment.body}</ul>
+              <li className='author'>From: {comment.author}</li>
+              {comment.author === logonUser.username ? (
                 <Button
                   variant='danger'
                   size='sm'
@@ -34,8 +36,8 @@ class Comments extends Component {
                 >
                   Delete
                 </Button>
-              </ul>
-            </Jumbotron>
+              ) : null}
+            </div>
           );
         })}
       </div>

@@ -1,2 +1,56 @@
-.App {
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+.isa_error {
+  margin: 5px 0px;
+  padding: 6px;
+  margin-left: initial;
+}
+
+.isa_error {
+  color: lightpink;
+}
+
+.isa_error i {
+  margin: 5px;
+  font-size: 16px;
+  vertical-align: right;
+}
+.isa_error {
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.nav {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+  list-style: none;
+}
+
+li .linkNav {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px 16px;
+  text-decoration: none;
+}
+
+li .linkNav:hover:not(.active) {
+  background-color: #4caf50;
+  text-decoration: none;
+}
+
+.active {
+  background-color: #4caf50;
+  text-decoration: none;
 }

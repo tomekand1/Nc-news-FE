@@ -28,8 +28,9 @@ class CommentsForm extends Component {
 
   handlePostNewComment = e => {
     e.preventDefault();
-    const { article_id } = this.props;
-    const obj = { username: 'grumpy19', body: this.state.body };
+    const { article_id, logonUser } = this.props;
+
+    const obj = { username: logonUser.username, body: this.state.body };
 
     api.postNewComment(article_id, obj).then(comment => {
       this.props.addComment(comment);

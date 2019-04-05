@@ -59,3 +59,8 @@ export const getTopics = () => {
 export const postTopic = obj => {
   return axios.post(`${base_url}/topics`, obj).then(({ data }) => data.topic);
 };
+
+//users handlers
+export const getUsers = () => {
+  return axios.get(`${base_url}/users`).then(({ data }) => data.users);
+};

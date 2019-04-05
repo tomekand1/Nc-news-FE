@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "^10.0.10",
     "@material-ui/core": "^3.9.3",
     "@reach/router": "^1.2.1",
     "axios": "^0.18.0",
@@ -11,7 +12,8 @@
     "react-bootstrap": "^1.0.0-beta.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^4.4.0-beta.8",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "react-sticky-nav": "^3.1.5"
   },
   "scripts": {
     "start": "react-scripts start",

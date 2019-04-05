@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Dropdown } from 'react-bootstrap';
 import * as api from '../api';
+import './style.css';
 
 class ArticlesForm extends Component {
   state = {
@@ -14,7 +15,7 @@ class ArticlesForm extends Component {
     const { inputBody, inputTitle, topics, selectTopic } = this.state;
 
     return (
-      <Form>
+      <Form className='form'>
         <h6>Add Article:</h6>
         <Dropdown>
           {selectTopic && <h3>Topic not Selected</h3>}
@@ -57,6 +58,9 @@ class ArticlesForm extends Component {
             required
           />
           <div>
+            <Form.Text className='text-muted'>
+              Press submit to add new article
+            </Form.Text>
             <button
               onClick={this.handleSubmitArticle}
               type='submit'
@@ -84,11 +88,13 @@ class ArticlesForm extends Component {
   handleSubmitArticle = e => {
     e.preventDefault();
     const { inputBody, inputTitle, inputTopic } = this.state;
+    const { logonUser } = this.props;
+    console.log(logonUser);
     const obj = {
       title: inputTitle,
       body: inputBody,
       topic: inputTopic,
-      username: 'weegembump'
+      username: logonUser
     };
 
     obj.topic === ''

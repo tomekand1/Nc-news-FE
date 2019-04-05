@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form } from 'react-bootstrap';
 import * as api from '../api';
+import './style.css';
 
 class TopicForm extends Component {
   state = {
@@ -12,7 +13,7 @@ class TopicForm extends Component {
   render() {
     const { inputBody, inputTitle, badRequest } = this.state;
     return (
-      <Form>
+      <Form className='form'>
         {badRequest && <p>Something is missing</p>}
         <Form.Group className='topicInput'>
           <Form.Label />
@@ -33,6 +34,9 @@ class TopicForm extends Component {
             required
           />
           <div>
+            <Form.Text className='text-muted'>
+              Press submit to add new topic
+            </Form.Text>
             <button
               onClick={this.handleSubmitTopic}
               type='submit'

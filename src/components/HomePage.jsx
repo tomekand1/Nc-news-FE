@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import * as api from '../api';
 import TopicForm from './TopicForm';
-
-import { Link } from '@reach/router';
+import './style.css';
+import { navigate } from '@reach/router';
 
 class HomePage extends Component {
   state = {
@@ -10,21 +10,27 @@ class HomePage extends Component {
   };
   render() {
     const { topics } = this.state;
-
+    const { logonUser } = this.props;
     return (
       <div>
-        <TopicForm addTopic={this.addTopic} />
-        <h6>There are {topics.length} topics on our page! </h6>
+        {logonUser && (
+          <div>
+            <h5 style={{ margin: '2em' }}>Add new Topic</h5>
+            <TopicForm addTopic={this.addTopic} />
+          </div>
+        )}
+        <h6 style={{ margin: '2em' }}>Topics: {topics.length} </h6>
         <ul>
           {topics.map(topic => {
             return (
-              <Link
-                to={`/articles/${topic.slug}`}
-                id={topic.slug}
-                style={{ cursor: 'pointer' }}
+              <div
+                className='topicView'
+                onClick={e => this.handleClick(e, topic.slug)}
+                key={topic.slug}
               >
                 <h4> Title: {topic.slug}</h4>
-              </Link>
+                <h6> {topic.description}</h6>
+              </div>
             );
           })}
         </ul>
@@ -36,6 +42,12 @@ class HomePage extends Component {
       this.setState({ topics: topics });
     });
   };
+
+  handleClick = (e, topicWhere) => {
+    e.preventDefault();
+    navigate(`/articles/${topicWhere}`);
+  };
+
   addTopic = topicToAdd => {
     this.setState({ topics: [topicToAdd, ...this.state.topics] });
   };

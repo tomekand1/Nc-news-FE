@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
 import Comments from './Comments';
-import { Jumbotron } from 'react-bootstrap';
 import * as api from '../api';
 import VoteButton from './VoteButton';
 
@@ -12,28 +11,30 @@ class SingleArticle extends Component {
 
   render() {
     const { article } = this.state;
-    const { article_id } = this.props;
+    const { article_id, logonUser } = this.props;
+
     return (
       <div>
-        <Jumbotron fluid>
+        <div className='jumbotron'>
           <h3>Article</h3>
           {article && (
             <div>
               <h3>{article.title}</h3>
               <p> {article.body}</p>
               <p>Author: {article.author}</p>
-              <VoteButton
-                article_id={article_id}
-                articleVotes={article.votes}
-              />
+              {logonUser && (
+                <VoteButton
+                  logonUser={logonUser}
+                  article_id={article_id}
+                  articleVotes={article.votes}
+                />
+              )}
             </div>
           )}
-        </Jumbotron>
+        </div>
         <div>
-          <div>
-            <h6>Add New Comment:</h6>
-          </div>
-          <Comments article_id={this.props.article_id} />
+          <div>{logonUser && <h6>Add New Comment:</h6>}</div>
+          <Comments logonUser={logonUser} article_id={this.props.article_id} />
         </div>
       </div>
     );

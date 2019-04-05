@@ -10,32 +10,45 @@ class Articles extends Component {
   };
   render() {
     const { articles } = this.state;
+    const { logonUser } = this.props;
     return (
       <div>
-        <ArticlesForm addArticle={this.addArticle} />
+        {logonUser && (
+          <ArticlesForm
+            logonUser={logonUser.username}
+            addArticle={this.addArticle}
+          />
+        )}
         {articles &&
           articles.map(article => {
             return (
               <ListGroup key={article.article_id} variant='flush'>
                 <ListGroup.Item>
                   <ul>
-                    <Link
-                      to={`/article/${article.article_id}`}
+                    <div
+                      className='articleView'
                       id={article.article_id}
                       style={{ cursor: 'pointer' }}
                     >
-                      <h4> Title: {article.title}</h4>
-                    </Link>
-                    <h6> Topic: {article.topic}</h6>
-                    <h6> {article.created_at.slice(0, 10)}</h6>
-                    <Button
-                      variant='danger'
-                      size='sm'
-                      onClick={this.handleDelete}
-                      id={article.article_id}
-                    >
-                      Delete
-                    </Button>
+                      <Link
+                        className='link'
+                        to={`/article/${article.article_id}`}
+                      >
+                        <h4 className='articleTitle'>Title: {article.title}</h4>
+                        <h6> Topic: {article.topic}</h6>
+                        <h6> {article.created_at.slice(0, 10)}</h6>
+                      </Link>
+                    </div>
+                    {article.author === logonUser ? (
+                      <Button
+                        variant='danger'
+                        size='sm'
+                        onClick={this.handleDelete}
+                        id={article.article_id}
+                      >
+                        Delete
+                      </Button>
+                    ) : null}
                   </ul>
                 </ListGroup.Item>
               </ListGroup>

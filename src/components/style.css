@@ -2,8 +2,20 @@
   margin-left: 2em;
   margin-right: 2em;
   border: 1px solid;
-  padding: 10px;
   box-shadow: 5px 10px #888888;
+}
+
+.form {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loginForm {
+  margin-top: 10em;
+  width: 65%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .list {
@@ -12,9 +24,7 @@
 
 .author {
   text-align: right;
-  text-decoration-line: underline;
-  margin-right: 2em;
-  color: rebeccapurple;
+  color: #333;
   padding: 10px;
 }
 .voteButtons {
@@ -25,4 +35,46 @@
 .commentInput {
   max-width: 1000px;
   margin: 0 auto;
+}
+
+.topicView {
+  margin-bottom: 2em;
+  margin-left: auto;
+  margin-right: 2em;
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px #333;
+}
+
+.topicView:hover {
+  transform: scale(1.02);
+  box-shadow: 5px 10px #4caf50;
+}
+
+.articleView {
+  text-decoration: none;
+  margin-bottom: 2em;
+  margin-left: auto;
+  margin-right: 2em;
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px #333;
+}
+
+.articleView:hover {
+  transform: scale(1.02);
+  box-shadow: 5px 10px #4caf50;
+}
+
+.link {
+  color: black;
+}
+
+.link:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.articleTitle:hover {
+  letter-spacing: 3px;
 }
