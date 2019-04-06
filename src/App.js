@@ -15,11 +15,11 @@ class App extends Component {
   state = {
     users: [],
     logonUser: false,
+    userAvatar: '',
     isSticky: true
   };
   render() {
-    const { users, logonUser } = this.state;
-
+    const { users, logonUser, userAvatar } = this.state;
     return (
       <div>
         <Navigation>
@@ -51,10 +51,10 @@ class App extends Component {
               </li>
               {logonUser && (
                 <li>
-                  <li className='linkNav'>Welcome, {logonUser.username}</li>
+                  <li className='linkNav'>Welcome, {logonUser}</li>
                   <img
                     className='linkNav'
-                    src={logonUser.avatar_url}
+                    src={userAvatar.avatar_url}
                     width='60px'
                     height='40px'
                     alt='avatar'
@@ -75,8 +75,8 @@ class App extends Component {
         <Router>
           <HomePage logonUser={logonUser} path='/' />
           <SingleArticle logonUser={logonUser} path='/article/:article_id' />
-          <Articles logonUser={logonUser.username} path='/articles' />
-          <Articles logonUser={logonUser.username} path='/articles/:topic' />
+          <Articles logonUser={logonUser} path='/articles' />
+          <Articles logonUser={logonUser} path='/articles/:topic' />
           <Login
             usernameToLog={this.usernameToLog}
             users={users}
@@ -96,7 +96,7 @@ class App extends Component {
   };
 
   usernameToLog = logonUser => {
-    this.setState({ logonUser });
+    this.setState({ logonUser: logonUser.username, userAvatar: logonUser });
     navigate('/');
   };
 }

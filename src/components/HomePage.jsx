@@ -28,8 +28,8 @@ class HomePage extends Component {
                 onClick={e => this.handleClick(e, topic.slug)}
                 key={topic.slug}
               >
-                <h4> Title: {topic.slug}</h4>
-                <h6> {topic.description}</h6>
+                <h4> {topic.description}</h4>
+                <h6> About: {topic.slug}</h6>
               </div>
             );
           })}

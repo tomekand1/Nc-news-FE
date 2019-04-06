@@ -27,7 +27,7 @@ class Comments extends Component {
             <div className='jumbotron' key={comment.comment_id}>
               <ul className='list'>{comment.body}</ul>
               <li className='author'>From: {comment.author}</li>
-              {comment.author === logonUser.username ? (
+              {comment.author === logonUser ? (
                 <Button
                   variant='danger'
                   size='sm'

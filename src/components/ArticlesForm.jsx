@@ -89,7 +89,6 @@ class ArticlesForm extends Component {
     e.preventDefault();
     const { inputBody, inputTitle, inputTopic } = this.state;
     const { logonUser } = this.props;
-    console.log(logonUser);
     const obj = {
       title: inputTitle,
       body: inputBody,

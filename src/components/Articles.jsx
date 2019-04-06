@@ -14,10 +14,7 @@ class Articles extends Component {
     return (
       <div>
         {logonUser && (
-          <ArticlesForm
-            logonUser={logonUser.username}
-            addArticle={this.addArticle}
-          />
+          <ArticlesForm logonUser={logonUser} addArticle={this.addArticle} />
         )}
         {articles &&
           articles.map(article => {

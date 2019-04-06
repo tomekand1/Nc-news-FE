@@ -66,7 +66,7 @@ class TopicForm extends Component {
     const { inputBody, inputTitle } = this.state;
 
     const obj = {
-      slug: inputTitle,
+      slug: inputTitle.toLocaleLowerCase(),
       description: inputBody
     };
 
