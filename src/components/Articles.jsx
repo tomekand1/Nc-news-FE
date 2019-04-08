@@ -1,23 +1,33 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import * as api from '../api';
 import ArticlesForm from './ArticlesForm';
+import StickyFooter from 'react-sticky-footer';
 
 class Articles extends Component {
   state = {
-    articles: null
+    articles: [],
+    input: ''
   };
   render() {
-    const { articles } = this.state;
+    const { articles, input } = this.state;
     const { logonUser } = this.props;
+
+    const searchedArticles = articles.filter(article => {
+      return article.title.toLowerCase().includes(this.state.input);
+    });
+
+    console.log(searchedArticles);
+
     return (
       <div>
         {logonUser && (
           <ArticlesForm logonUser={logonUser} addArticle={this.addArticle} />
         )}
+
         {articles &&
-          articles.map(article => {
+          searchedArticles.map(article => {
             return (
               <ul className='articleList' key={article.article_id}>
                 <div
@@ -44,6 +54,24 @@ class Articles extends Component {
               </ul>
             );
           })}
+        <StickyFooter
+          bottomThreshold={50}
+          stickyStyles={{
+            backgroundColor: 'rgba(255,255,255,.8)',
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+          }}
+        >
+          <Form onSubmit={this.handleSearch}>
+            <Form.Control
+              onChange={this.handleChange}
+              placeholder='title search'
+              type='text'
+              value={input}
+            />
+          </Form>
+        </StickyFooter>
       </div>
     );
   }
@@ -57,6 +85,15 @@ class Articles extends Component {
     api.getArticles(selectedTopic).then(articles => {
       return this.setState({ articles });
     });
+  };
+
+  clearInput = () => {
+    this.setState({ input: '' });
+  };
+
+  handleChange = e => {
+    let input = e.target.value;
+    this.setState({ input });
   };
 
   handleDelete = e => {

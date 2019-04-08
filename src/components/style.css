@@ -59,6 +59,7 @@
   border: 1px solid;
   padding: 10px;
   box-shadow: 5px 10px #333;
+  transition: 0.5s;
 }
 
 .articleView:hover {
@@ -73,6 +74,10 @@
 .link:hover {
   text-decoration: none;
   color: black;
+}
+
+.articleTitle {
+  transition: 0.5s;
 }
 
 .articleTitle:hover {
