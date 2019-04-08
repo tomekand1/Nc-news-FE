@@ -11,6 +11,7 @@ class HomePage extends Component {
   render() {
     const { topics } = this.state;
     const { logonUser } = this.props;
+
     return (
       <div>
         {logonUser && (
@@ -19,6 +20,7 @@ class HomePage extends Component {
             <TopicForm addTopic={this.addTopic} />
           </div>
         )}
+        {topics.length === 0 ? <h3>Loading topics...</h3> : null}
         <h6 style={{ margin: '2em' }}>Topics: {topics.length} </h6>
         <ul className='topicList'>
           {topics.map(topic => {

@@ -22,13 +22,11 @@ class SingleArticle extends Component {
               <h3>{article.title}</h3>
               <p> {article.body}</p>
               <p>Author: {article.author}</p>
-              {logonUser && (
-                <VoteButton
-                  logonUser={logonUser}
-                  article_id={article_id}
-                  articleVotes={article.votes}
-                />
-              )}
+              <VoteButton
+                logonUser={logonUser}
+                article_id={article_id}
+                articleVotes={article.votes}
+              />
             </div>
           )}
         </div>

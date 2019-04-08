@@ -8,17 +8,17 @@ class ArticlesForm extends Component {
     inputBody: '',
     inputTitle: '',
     inputTopic: '',
-    selectTopic: false,
-    topics: []
+    topics: [],
+    noInput: false
   };
   render() {
-    const { inputBody, inputTitle, topics, selectTopic } = this.state;
+    const { inputBody, inputTitle, topics, noInput } = this.state;
 
     return (
       <Form className='form'>
         <h6>Add Article:</h6>
+        {noInput && <p className='noInput'>Something is missing</p>}
         <Dropdown>
-          {selectTopic && <h3>Topic not Selected</h3>}
           <select
             onChange={e => this.handleChange(e, 'topic')}
             className='form-control'
@@ -89,18 +89,20 @@ class ArticlesForm extends Component {
     e.preventDefault();
     const { inputBody, inputTitle, inputTopic } = this.state;
     const { logonUser } = this.props;
-    const obj = {
+    const articleInput = {
       title: inputTitle,
       body: inputBody,
       topic: inputTopic,
       username: logonUser
     };
 
-    obj.topic === ''
-      ? this.setState({ selectTopic: true })
-      : api.postArticles(obj).then(article => {
+    articleInput.topic === '' ||
+    articleInput.body === '' ||
+    articleInput.title === ''
+      ? this.setState({ noInput: true })
+      : api.postArticles(articleInput).then(article => {
           this.props.addArticle(article);
-          this.setState({ selectTopic: false });
+          this.setState({ noInput: false });
           this.clearInput();
         });
   };

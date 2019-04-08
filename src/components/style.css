@@ -44,27 +44,40 @@
   border: 1px solid;
   padding: 10px;
   box-shadow: 5px 10px #333;
+  transition: 0.5s;
 }
 
 .topicView:hover {
   transform: scale(1.02);
   box-shadow: 5px 10px #4caf50;
+  transition: 0.5s;
+}
+
+.articleList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .articleView {
   text-decoration: none;
   margin-bottom: 2em;
-  margin-left: auto;
+  margin-left: 0em;
   margin-right: 2em;
   border: 1px solid;
   padding: 10px;
-  box-shadow: 5px 10px #333;
-  transition: 0.5s;
+  box-shadow: 0.5em 10px #333;
+  transition: 0.4s;
+  min-width: 19em;
+  max-width: 19em;
+  min-height: 11.25em;
 }
 
 .articleView:hover {
   transform: scale(1.02);
-  box-shadow: 5px 10px #4caf50;
+  box-shadow: 0.5em 0.5em #4caf50;
 }
 
 .link {
@@ -77,9 +90,44 @@
 }
 
 .articleTitle {
-  transition: 0.5s;
+  transition: 0.4s;
 }
 
 .articleTitle:hover {
-  letter-spacing: 3px;
+  letter-spacing: 1px;
+}
+
+.footerChildren {
+  background: #333;
+  padding: 10px;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+}
+
+.footer {
+  display: block;
+  padding: 20px;
+  height: 50px;
+  width: 100%;
+}
+
+.e404 {
+  font-size: 150px;
+}
+
+.noInput {
+  color: red;
+}
+
+.noInput {
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

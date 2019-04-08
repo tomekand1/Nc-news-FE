@@ -10,6 +10,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
 import { navigate } from '@reach/router';
 import Navigation from 'react-sticky-nav';
+import BadUrl from './components/BadUrl';
 
 class App extends Component {
   state = {
@@ -82,6 +83,8 @@ class App extends Component {
             users={users}
             path='/login'
           />
+          <BadUrl path='/*' />
+          <BadUrl path='/articles/*' />
         </Router>
       </div>
     );

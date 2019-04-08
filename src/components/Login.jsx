@@ -22,7 +22,7 @@ class Login extends Component {
               value={inputUser}
             />
             <Form.Text className='text-muted'>
-              {userNotFound && <h6 style={{ color: 'red' }}>User not exist</h6>}
+              {userNotFound && <h6 className='noInput'>User not exist</h6>}
               We'll never share your details with anyone else.
             </Form.Text>
           </Form.Group>

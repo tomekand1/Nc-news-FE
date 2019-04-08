@@ -7,21 +7,24 @@ class TopicForm extends Component {
   state = {
     inputBody: '',
     inputTitle: '',
-    badRequest: false
+    badRequest: false,
+    noInput: false
   };
 
   render() {
-    const { inputBody, inputTitle, badRequest } = this.state;
+    const { inputBody, inputTitle, badRequest, noInput } = this.state;
     return (
       <Form className='form'>
-        {badRequest && <p>Something is missing</p>}
+        {(badRequest || noInput) && (
+          <p className='noInput'>Something is missing</p>
+        )}
         <Form.Group className='topicInput'>
           <Form.Label />
           <Form.Control
             onChange={e => this.handleChange(e, 'title')}
             placeholder='Topic Title ...'
             type='text'
-            value={inputTitle === null ? '' : inputTitle}
+            value={inputTitle}
             required
           />
           <label />
@@ -65,19 +68,20 @@ class TopicForm extends Component {
     e.preventDefault();
     const { inputBody, inputTitle } = this.state;
 
-    const obj = {
+    const topicData = {
       slug: inputTitle.toLocaleLowerCase(),
       description: inputBody
     };
-
-    api
-      .postTopic(obj)
-      .then(article => {
-        this.props.addTopic(article);
-        this.setState({ badRequest: false });
-        this.clearInput();
-      })
-      .catch(() => this.setState({ badRequest: true }));
+    topicData.slug === '' || topicData.description === ''
+      ? this.setState({ noInput: true })
+      : api
+          .postTopic(topicData)
+          .then(article => {
+            this.props.addTopic(article);
+            this.setState({ badRequest: false, noInput: false });
+            this.clearInput();
+          })
+          .catch(() => this.setState({ badRequest: true }));
   };
 }
 

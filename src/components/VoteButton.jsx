@@ -9,26 +9,30 @@ class VoteButton extends Component {
   };
   render() {
     const { votes } = this.state;
-    const { articleVotes } = this.props;
+    const { articleVotes, logonUser } = this.props;
     return (
       <div className='voteButtons'>
-        <Button
-          variant='success'
-          size='sm'
-          disabled={votes === 1}
-          onClick={() => this.handleClickVote(1)}
-        >
-          Like
-        </Button>
-        <h5>Like: {articleVotes + votes} </h5>
-        <Button
-          variant='danger'
-          size='sm'
-          disabled={votes === -1}
-          onClick={() => this.handleClickVote(-1)}
-        >
-          Dislike
-        </Button>
+        {logonUser && (
+          <Button
+            variant='success'
+            size='sm'
+            disabled={votes === 1}
+            onClick={() => this.handleClickVote(1)}
+          >
+            Like
+          </Button>
+        )}
+        <h5>Likes: {articleVotes + votes} </h5>
+        {logonUser && (
+          <Button
+            variant='danger'
+            size='sm'
+            disabled={votes === -1}
+            onClick={() => this.handleClickVote(-1)}
+          >
+            Dislike
+          </Button>
+        )}
       </div>
     );
   }
