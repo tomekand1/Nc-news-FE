@@ -8,10 +8,11 @@ import Footer from './Footer';
 class Articles extends Component {
   state = {
     articles: [],
-    input: ''
+    input: '',
+    swipe: false
   };
   render() {
-    const { articles, input } = this.state;
+    const { articles, input, swipe } = this.state;
     const { logonUser } = this.props;
 
     const searchedArticles = articles.filter(article => {
@@ -24,8 +25,9 @@ class Articles extends Component {
           <ArticlesForm logonUser={logonUser} addArticle={this.addArticle} />
         )}
         {articles.length === 0 ? <h3>Loading articles...</h3> : null}
+        <h6 style={{ margin: '2em' }}>Articles: {searchedArticles.length} </h6>
         {articles && (
-          <ul className='articleList'>
+          <ul className='articleList' onTouchMove={this.handleScroll}>
             {searchedArticles.map(article => {
               return (
                 <li
@@ -57,18 +59,25 @@ class Articles extends Component {
             })}
           </ul>
         )}
-        <Footer>
-          <Form.Control
-            className='articleSearch'
-            onChange={this.handleChange}
-            placeholder='Search By title...'
-            type='text'
-            value={input}
-          />
-        </Footer>
+        {swipe && (
+          <Footer>
+            <Form.Control
+              className='articleSearch'
+              onChange={this.handleChange}
+              placeholder='Search By title...'
+              type='text'
+              value={input}
+            />
+          </Footer>
+        )}
       </div>
     );
   }
+
+  handleScroll = e => {
+    this.setState({ swipe: true });
+  };
+
   addArticle = articleToAdd => {
     this.setState({ articles: [articleToAdd, ...this.state.articles] });
   };
