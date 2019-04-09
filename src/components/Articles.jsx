@@ -85,7 +85,6 @@ class Articles extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    console.log(this.props);
     if (this.props.topic !== prevProps.topic) {
       this.getArticles();
     }

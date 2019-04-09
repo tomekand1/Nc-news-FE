@@ -20,7 +20,7 @@ class ArticlesForm extends Component {
         {noInput && <p className='noInput'>Something is missing</p>}
         <Dropdown>
           <select
-            onChange={e => this.handleChange(e, 'topic')}
+            onChange={e => this.handleChange(e.target.value, 'inputTopic')}
             className='form-control'
             id='sel2'
           >
@@ -29,7 +29,7 @@ class ArticlesForm extends Component {
               return (
                 <option
                   key={topic.slug}
-                  onClick={e => this.handleChange(e, 'topic')}
+                  onClick={e => this.handleChange(e.target.value, 'inputTopic')}
                   value={topic.slug}
                   id={topic.topic_id}
                 >
@@ -42,7 +42,7 @@ class ArticlesForm extends Component {
         <Form.Group className='commentInput'>
           <Form.Label />
           <Form.Control
-            onChange={e => this.handleChange(e, 'title')}
+            onChange={e => this.handleChange(e.target.value, 'inputTitle')}
             placeholder='Enter Title'
             type='text'
             value={inputTitle}
@@ -53,7 +53,7 @@ class ArticlesForm extends Component {
             placeholder='article...'
             className='form-control'
             rows='3'
-            onChange={e => this.handleChange(e.target.value, 'body')}
+            onChange={e => this.handleChange(e.target.value, 'inputBody')}
             value={inputBody}
             required
           />

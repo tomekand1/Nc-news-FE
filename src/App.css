@@ -58,9 +58,5 @@ li .linkNav:hover:not(.active) {
 }
 
 body {
-  background-color: #333333;
-  color: #ffffff;
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-  font-weight: 300;
-  overflow-x: hidden;
+  background-color: #c3c3c3;
 }
