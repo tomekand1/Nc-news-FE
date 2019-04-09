@@ -37,11 +37,13 @@ class Articles extends Component {
                   style={{ cursor: 'pointer' }}
                 >
                   <Link className='link' to={`/article/${article.article_id}`}>
+                    <h6> Topic: {article.topic}</h6>
                     <h4 className='articleTitle'>
                       Title: {article.title.slice(0, 30) + '...'}
                     </h4>
-                    <h6> Topic: {article.topic}</h6>
-                    <h6> {article.created_at.slice(0, 10)}</h6>
+                    <p className='articleDate'>
+                      {article.created_at.slice(0, 10)}
+                    </p>
                   </Link>
 
                   {article.author === logonUser ? (
@@ -82,7 +84,18 @@ class Articles extends Component {
     this.setState({ articles: [articleToAdd, ...this.state.articles] });
   };
 
+  componentDidUpdate(prevProps) {
+    console.log(this.props);
+    if (this.props.topic !== prevProps.topic) {
+      this.getArticles();
+    }
+  }
+
   componentDidMount = () => {
+    this.getArticles();
+  };
+
+  getArticles = () => {
     const selectedTopic = this.props.topic;
 
     api.getArticles(selectedTopic).then(articles => {

@@ -43,13 +43,14 @@
   margin-right: 2em;
   border: 1px solid;
   padding: 10px;
-  box-shadow: 5px 10px #333;
+  box-shadow: 1px 1px #333;
   transition: 0.5s;
+  border-radius: 5px;
 }
 
 .topicView:hover {
   transform: scale(1.02);
-  box-shadow: 5px 10px #4caf50;
+  box-shadow: 2px 2px rgb(0, 162, 255);
   transition: 0.5s;
 }
 
@@ -68,16 +69,23 @@
   margin-right: 2em;
   border: 1px solid;
   padding: 10px;
-  box-shadow: 0.5em 10px #333;
+  box-shadow: 1px 1px #333;
   transition: 0.4s;
   min-width: 19em;
   max-width: 19em;
   min-height: 11.25em;
+  border-radius: 5px;
 }
 
 .articleView:hover {
-  transform: scale(1.02);
-  box-shadow: 0.5em 0.5em #4caf50;
+  transform: scale(1.03);
+  box-shadow: 2px 2px rgb(0, 162, 255);
+}
+
+.articleView > .articleDate {
+  position: fixed;
+  right: 5px;
+  font-size: 10px;
 }
 
 .link {

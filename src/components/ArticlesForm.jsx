@@ -53,7 +53,7 @@ class ArticlesForm extends Component {
             placeholder='article...'
             className='form-control'
             rows='3'
-            onChange={e => this.handleChange(e, 'body')}
+            onChange={e => this.handleChange(e.target.value, 'body')}
             value={inputBody}
             required
           />
@@ -74,15 +74,8 @@ class ArticlesForm extends Component {
     );
   }
 
-  handleChange = (e, inputText) => {
-    const input = e.target.value;
-    if (inputText === 'body') {
-      this.setState({ inputBody: input });
-    } else if (inputText === 'title') {
-      this.setState({ inputTitle: input });
-    } else {
-      this.setState({ inputTopic: input });
-    }
+  handleChange = (value, inputText) => {
+    this.setState({ [inputText]: value });
   };
 
   handleSubmitArticle = e => {
