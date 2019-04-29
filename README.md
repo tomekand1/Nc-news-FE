@@ -1,3 +1,5 @@
+#### Created in React by Tomasz Andrianczyk
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 App written in react.
@@ -11,7 +13,7 @@ Once downloaded, make sure to install all the dependencies:
 
 ### npm install
 
-The project has been built with React, Axios and @reach/router, bootstrap, react-sticky-footer, react-sticky-nav Versions of these can be found in the package.json file.
+The project has been built with React, Axios, @reach/router, bootstrap, react-sticky-footer, react-sticky-nav. Versions of these can be found in the package.json file.
 
 Installation
 
