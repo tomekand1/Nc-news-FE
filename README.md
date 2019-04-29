@@ -1,6 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 App written in react.
+Fully tested on android phone.
 
 Installation
 

@@ -24,7 +24,7 @@ class ArticlesForm extends Component {
             className='form-control'
             id='sel2'
           >
-            <option>Select topic ...</option>
+            <option key='defaultSelect'>Select topic ...</option>
             {topics.map(topic => {
               return (
                 <option

@@ -21,7 +21,7 @@ class TopicForm extends Component {
         <Form.Group className='topicInput'>
           <Form.Label />
           <Form.Control
-            onChange={e => this.handleChange(e, 'title')}
+            onChange={e => this.handleChange(e, 'inputTitle')}
             placeholder='Topic Title ...'
             type='text'
             value={inputTitle}
@@ -32,7 +32,7 @@ class TopicForm extends Component {
             placeholder='Description ...'
             className='form-control'
             rows='3'
-            onChange={e => this.handleChange(e, 'body')}
+            onChange={e => this.handleChange(e, 'inputBody')}
             value={inputBody}
             required
           />
@@ -59,9 +59,7 @@ class TopicForm extends Component {
 
   handleChange = (e, inputText) => {
     const input = e.target.value;
-    inputText === 'body'
-      ? this.setState({ inputBody: input })
-      : this.setState({ inputTitle: input });
+    this.setState({ [inputText]: input });
   };
 
   handleSubmitTopic = e => {
